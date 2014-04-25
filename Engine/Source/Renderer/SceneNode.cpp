@@ -2,6 +2,9 @@
 
 std::set<SceneNode::Ptr> SceneNode::sNodes;
 
+/**
+   Delete a scene node from memory
+ */
 void SceneNode::Destroy(SceneNode* node) {
   assert (node->mParent == nullptr);
   size_t result = sNodes.erase(node);
@@ -9,16 +12,28 @@ void SceneNode::Destroy(SceneNode* node) {
   delete node;
 }
 
+/**
+   Construct a SceneNode, and add the pointer to this object to class
+   member variable sNodes
+ */
 SceneNode::SceneNode() : mChildren(), mParent(nullptr) {
   sNodes.insert(this);
 }
 
+/**
+   Destructor of a SceneNode. Deletes all its child.
+ */
 SceneNode::~SceneNode() {
   for (SceneNode* child : mChildren) {
     delete child;
   }
 }
 
+/**
+   Attaches another sceneNode to this one
+
+   @param child The SceneNode to be added
+ */
 void SceneNode::attachChild(Ptr child) {
   assert (child != nullptr);
   child->mParent = this;
@@ -26,6 +41,11 @@ void SceneNode::attachChild(Ptr child) {
   assert (success);
 }
 
+/**
+   Detaches a child node
+
+   @param node The SceneNode to be removed
+ */
 SceneNode::Ptr SceneNode::detachChild(SceneNode* node) {
   std::set<Ptr>::iterator found = mChildren.find(node);
   assert (found != mChildren.end());
@@ -36,6 +56,31 @@ SceneNode::Ptr SceneNode::detachChild(SceneNode* node) {
   return result;
 }
 
+/**
+   Update function
+
+   @param dT Elapsed time
+ */
+void SceneNode::update(float dT) {
+  assert(dT>0.f);
+  updateCurrent(dT);
+  updateChildren(dT);
+}
+
+/**
+   Updates this scene node
+
+   @param dT Elapsed time
+ */
+void SceneNode::updateCurrent(float dT) {
+}
+					
+
+/**
+   Updates child node
+
+   @param dT Elapsed time
+ */
 void SceneNode::updateChildren(float dT) {
   assert (dT > 0.f);
   for (SceneNode* child : mChildren) {

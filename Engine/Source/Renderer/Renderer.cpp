@@ -1,10 +1,20 @@
 #include <Renderer.hpp>
 
+/**
+   Constructor of Renderer
+
+   @param width Window width
+   @param height Window height
+   @param title Window title
+ */
 Renderer::Renderer(unsigned int width, unsigned int height,
 		   const std::string& title) :
   mWindow(sf::VideoMode(width, height), title){
 }
 
+/**
+   Processes events from SFML window
+ */
 void Renderer::processEvents() {
   sf::Event event;
   while (mWindow.pollEvent(event)) {
@@ -16,6 +26,9 @@ void Renderer::processEvents() {
   }
 }
 
+/**
+   Update scene
+ */
 void Renderer::update() {
 }
 

@@ -6,6 +6,9 @@
 #include <memory>
 #include <algorithm>
 
+/**
+   Base class of Scene Nodes
+ */
 class SceneNode {
 public:
   typedef SceneNode* Ptr;
@@ -21,8 +24,8 @@ public:
 public:
   void attachChild(Ptr child);
   Ptr detachChild(SceneNode* node);
-  virtual void update(float dT) {assert(dT>0.f);updateCurrent(dT);updateChildren(dT);}
-  virtual void updateCurrent(float dT) {}
+  virtual void update(float dT);
+  virtual void updateCurrent(float dT);
   void updateChildren(float dT);
 
 

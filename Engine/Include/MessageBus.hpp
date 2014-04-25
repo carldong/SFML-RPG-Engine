@@ -11,7 +11,9 @@
 class Message;
 class Listener;
 class MessageBus;
+
 /**
+   Class for messages
  */
 class Message {
 public:
@@ -33,6 +35,7 @@ public:
 };
 
 /**
+   An extention of Messages which can contain other data
  */
 template<typename T>
 class RichMessage : public Message{
@@ -45,6 +48,9 @@ public:
 };
 
 /**
+   This is the class that enables everything else to communicate.
+   It is driven by LogicTicks as clock source. At each LogicTick message
+   received, the entire game is updated
  */
 class MessageBus {
 public:
@@ -70,6 +76,7 @@ private:
 };
 
 /**
+   The base class for listeners that receives messages from MessageBus
  */
 class Listener {
 public:

@@ -7,6 +7,9 @@
 #include <MessageBus.hpp>
 #include <Renderer/SceneNode.hpp>
 
+/**
+   This is the Listener to actually render graphics.
+ */
 class Renderer : public Listener {
 public:
   Renderer(unsigned int width, unsigned int height,

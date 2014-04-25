@@ -1,10 +1,16 @@
 #include <MessageBus.hpp>
 
+/**
+   Destructor of Listener. Deregisters self
+ */
 Listener::~Listener() {
   if (mMessageBus != nullptr)
     mMessageBus->deregisterListener(this);
 }
 
+/**
+   Destructor of MessageBus. Deregisters every listener.
+ */
 MessageBus::~MessageBus() {
   std::set<Listener*>::iterator itr;
   for (Listener* listener : mListenerSet) {
@@ -15,6 +21,8 @@ MessageBus::~MessageBus() {
 
 /**
    Posts a message. If the message is LogicTick, then process queue
+
+   @param message The message to be posted
  */
 void MessageBus::post(Message* message) {
   assert (message != nullptr);
@@ -26,6 +34,8 @@ void MessageBus::post(Message* message) {
 
 /**
    Register a listener
+
+   @param listener The listener to be registered
  */
 void MessageBus::registerListener(Listener* listener) {
   std::pair<std::set<Listener*>::iterator, bool> result =
@@ -35,6 +45,8 @@ void MessageBus::registerListener(Listener* listener) {
 
 /**
    Deregister a listener
+
+   @param listener The listener to be deregistered
  */
 void MessageBus::deregisterListener(Listener* listener) {
   std::set<Listener*>::iterator itr =
@@ -45,7 +57,7 @@ void MessageBus::deregisterListener(Listener* listener) {
 }
 
 /**
-   Handle the queue stored
+   Handle the message queue stored. Messages are deleted after broadcasting
  */
 void MessageBus::handleQueue() {
   while (!mMessageQueue.empty()) {
@@ -59,6 +71,8 @@ void MessageBus::handleQueue() {
 
 /**
    Broadcast a message through message bus
+
+   @param message The message to be broadcasted
  */
 void MessageBus::broadcast(Message* message) {
   for (Listener* listener : mListenerSet) {

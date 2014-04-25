@@ -10,6 +10,10 @@ Game::~Game() {
 
 }
 
+/**
+   The main game loop. Sends LogicTick message after interval to drive
+   MessageBus
+ */
 void Game::run() {
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   mClock.restart();
