@@ -1,7 +1,6 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
 

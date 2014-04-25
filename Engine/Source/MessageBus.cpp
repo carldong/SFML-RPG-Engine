@@ -53,6 +53,7 @@ void MessageBus::handleQueue() {
     Message* msg = mMessageQueue.front();
     broadcast(msg);
     mMessageQueue.pop();
+    // Message is not needed after broadcasting
     delete msg;
   }
 }
