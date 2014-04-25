@@ -5,6 +5,7 @@
 #include <SFML/System.hpp>
 
 #include <MessageBus.hpp>
+#include <Renderer/SceneNode.hpp>
 
 class Renderer : public Listener {
 public:

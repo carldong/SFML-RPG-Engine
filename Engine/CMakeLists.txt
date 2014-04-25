@@ -77,6 +77,12 @@ IF (ENABLE_TEST)
     ${LIBRARY_NAME}
     )
   ADD_TEST(Test_Game_Fail Test_Game_Fail)
+
+  ADD_EXECUTABLE(Test_SceneNode Test/Test_SceneNode.cpp)
+  TARGET_LINK_LIBRARIES(Test_SceneNode
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_SceneNode Test_SceneNode)
 ENDIF()
 
 
