@@ -1,14 +1,14 @@
 #Change this if you need to target a specific CMake version
-cmake_minimum_required(VERSION 2.6)
-project(SFML_Engine)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(SFML_Engine)
 
 # Enable debug symbols by default
-if(CMAKE_BUILD_TYPE STREQUAL "")
-  set(CMAKE_BUILD_TYPE Debug)
-endif()
+IF(CMAKE_BUILD_TYPE STREQUAL "")
+  SET(CMAKE_BUILD_TYPE Debug)
+ENDIF()
 # (you can also set it on the command line: -D CMAKE_BUILD_TYPE=Release)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Include")
+INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/Include")
 
 SET(CMAKE_CXX_FLAGS "-std=c++11")
 
@@ -26,29 +26,51 @@ ADD_EXECUTABLE(${EXECUTABLE_NAME} Main.cpp)
 TARGET_LINK_LIBRARIES(${EXECUTABLE_NAME} ${LIBRARY_NAME})
 
 IF (ENABLE_TEST)
+  ENABLE_TESTING()
   FIND_PACKAGE(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
   INCLUDE_DIRECTORIES(
     ${Boost_INCLUDE_DIRS}
     )
   ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
-  
-  ADD_EXECUTABLE(Test_MessageBus Test/Test_MessageBus.cpp)
-  TARGET_LINK_LIBRARIES ( Test_MessageBus
-    ${LIBRARY_NAME}
+
+  TARGET_LINK_LIBRARIES(${LIBRARY_NAME}
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
     )
-  ENABLE_TESTING()
+  
+  ADD_EXECUTABLE(Test_TestSuite Test/Test_TestSuite.cpp)
+  TARGET_LINK_LIBRARIES ( Test_TestSuite
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_TestSuite Test_TestSuite)
+  
+  ADD_EXECUTABLE(Test_MessageBus Test/Test_MessageBus.cpp)
+  TARGET_LINK_LIBRARIES ( Test_MessageBus
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Messagebus Test_MessageBus)
+  
+  ADD_EXECUTABLE(Test_Game Test/Test_Game.cpp)
+  TARGET_LINK_LIBRARIES ( Test_Game
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Game Test_Game)
+
+  ADD_EXECUTABLE(Test_Game_Fail Test/Test_Game_Fail.cpp)
+  TARGET_LINK_LIBRARIES ( Test_Game_Fail
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Game_Fail Test_Game_Fail)
 ENDIF()
 
 
 # Detect and add SFML
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
-find_package(SFML 2 REQUIRED system window graphics network audio)
-if(SFML_FOUND)
-  include_directories(${SFML_INCLUDE_DIR})
-  target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
-endif()
+FIND_PACKAGE(SFML 2 REQUIRED system window graphics network audio)
+IF(SFML_FOUND)
+  INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
+  TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${SFML_LIBRARIES})
+ENDIF()

@@ -16,16 +16,19 @@ class Message {
 public:
   enum Type {
     LogicTick,
-    Type_Count
+    Pause,
+    Quit,
+    Rich,
+    TypeCount
   };
 
 public:
-  Message(Type type, const std::string& desc="") :
-    mType(type) {std::hash<std::string> hash; mDesc = hash(desc);} 
+  Message(Type type_, const std::string& desc_="") :
+    type(type_), desc(desc_) {} 
 
 public:
-  Type mType;
-  size_t mDesc;
+  Type type;
+  std::string desc;
 };
 
 /**
@@ -33,27 +36,12 @@ public:
 template<typename T>
 class RichMessage : public Message{
 public:
-  RichMessage(Type type, const T& value, const std::string& desc="") :
-    Message(type, desc), mValue(value) {}
+  RichMessage(Type type, const T& value_, const std::string& desc_="") :
+    Message(type, desc_), value(value_) {assert(type>=Rich);}
   
 public:
-  T mValue;
+  T value;
 };
-
-
-/**
- */
-class Listener {
-public:
-  Listener(MessageBus* bus) : mMessageBus(bus) {assert(bus != nullptr);}
-  ~Listener();
-
-  virtual void notify(const Message*) {}
-  
-private:
-  MessageBus* mMessageBus;
-};
-
 
 /**
  */
@@ -77,6 +65,29 @@ private:
 private:
   std::set<Listener*> mListenerSet;
   std::queue<Message*> mMessageQueue;
+};
+
+/**
+ */
+class Listener {
+public:
+  Listener() : mMessageBus(nullptr) {}
+  Listener(MessageBus* bus) : mMessageBus(bus) {
+    registerTo(bus);
+  }
+  ~Listener();
+
+  void registerTo(MessageBus* bus) {
+    assert(bus != nullptr);
+    if (mMessageBus != nullptr)
+      mMessageBus->deregisterListener(this);
+    mMessageBus = bus;
+    mMessageBus->registerListener(this);
+  }
+  virtual void notify(Message* msg) {}
+  
+protected:
+  MessageBus* mMessageBus;
 };
 
 #endif // __MESSAGE_BUS_H__

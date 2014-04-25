@@ -1,8 +1,8 @@
 #include <MessageBus.hpp>
 
 Listener::~Listener() {
-  assert(mMessageBus!=nullptr); 
-  mMessageBus->deregisterListener(this);
+  if (mMessageBus != nullptr)
+    mMessageBus->deregisterListener(this);
 }
 
 /**
@@ -11,7 +11,7 @@ Listener::~Listener() {
 void MessageBus::post(Message* message) {
   assert (message != nullptr);
   mMessageQueue.push(message);
-  if (message->mType == Message::LogicTick) {
+  if (message->type == Message::LogicTick) {
     handleQueue();
   }
 }
@@ -42,7 +42,8 @@ bool MessageBus::deregisterListener(Listener* listener) {
  */
 void MessageBus::handleQueue() {
   while (!mMessageQueue.empty()) {
-    broadcast(mMessageQueue.front());
+    Message* msg = mMessageQueue.front();
+    broadcast(msg);
     mMessageQueue.pop();
   }
 }
