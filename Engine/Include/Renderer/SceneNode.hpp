@@ -11,12 +11,14 @@ public:
   typedef SceneNode* Ptr;
 
 public:
+  // Class Methods
+  static void Destroy(SceneNode* node);
+
+  // Constructor and destructor
   SceneNode();
   ~SceneNode();
-  static void Destroy(SceneNode* node);
-  
-public:
 
+public:
   void attachChild(Ptr child);
   Ptr detachChild(SceneNode* node);
   virtual void update(float dT) {assert(dT>0.f);updateChildren(dT);}

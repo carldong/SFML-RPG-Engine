@@ -4,21 +4,25 @@
 #include <boost/bind.hpp>
 
 #include <Renderer/SceneNode.hpp>
-
+#include "Test_SceneNode.hpp"
 using namespace boost::unit_test;
 
+void TestSceneNode::update(float dT) {
+  updateChildren(dT);
+  updated = true;
+}
 
 int test_construct() {
-  SceneNode* scene = new SceneNode();
+  TestSceneNode* scene = new TestSceneNode();
 
-  SceneNode* c1 = new SceneNode();
-  SceneNode* c2 = new SceneNode();
+  TestSceneNode* c1 = new TestSceneNode();
+  TestSceneNode* c2 = new TestSceneNode();
 
-  SceneNode* c11 = new SceneNode();
-  SceneNode* c21 = new SceneNode();
-  SceneNode* c22 = new SceneNode();
+  TestSceneNode* c11 = new TestSceneNode();
+  TestSceneNode* c21 = new TestSceneNode();
+  TestSceneNode* c22 = new TestSceneNode();
 
-  SceneNode* c223 = new SceneNode();
+  TestSceneNode* c223 = new TestSceneNode();
 
   scene->attachChild(c1);
   scene->attachChild(c2);
@@ -30,9 +34,9 @@ int test_construct() {
   c22->attachChild(c223);
 
   c2->detachChild(c21);
-  SceneNode::Destroy(c21);
+  TestSceneNode::Destroy(c21);
   c2->detachChild(c22);
-  SceneNode::Destroy(c22);
+  TestSceneNode::Destroy(c22);
 
   delete scene;
 
@@ -40,16 +44,16 @@ int test_construct() {
 }
 
 int test_Update() {
-  SceneNode* scene = new SceneNode();
+  TestSceneNode* scene = new TestSceneNode();
 
-  SceneNode* c1 = new SceneNode();
-  SceneNode* c2 = new SceneNode();
+  TestSceneNode* c1 = new TestSceneNode();
+  TestSceneNode* c2 = new TestSceneNode();
 
-  SceneNode* c11 = new SceneNode();
-  SceneNode* c21 = new SceneNode();
-  SceneNode* c22 = new SceneNode();
+  TestSceneNode* c11 = new TestSceneNode();
+  TestSceneNode* c21 = new TestSceneNode();
+  TestSceneNode* c22 = new TestSceneNode();
 
-  SceneNode* c223 = new SceneNode();
+  TestSceneNode* c223 = new TestSceneNode();
 
   scene->attachChild(c1);
   scene->attachChild(c2);
@@ -61,10 +65,18 @@ int test_Update() {
   c22->attachChild(c223);
 
   c2->detachChild(c21);
-  SceneNode::Destroy(c21);
 
   scene->update(0.1f);
 
+  BOOST_CHECK(scene->updated);
+  BOOST_CHECK(c1->updated);
+  BOOST_CHECK(c2->updated);
+  BOOST_CHECK(c11->updated);
+  BOOST_CHECK(!c21->updated);
+  BOOST_CHECK(c22->updated);
+  BOOST_CHECK(c223->updated);
+
+  TestSceneNode::Destroy(c21);
   delete scene;
 
   return 0;
