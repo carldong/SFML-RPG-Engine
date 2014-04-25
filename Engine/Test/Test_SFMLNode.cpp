@@ -17,6 +17,7 @@ int drawnCount::count = 0;
 
 void TestSFMLNode::drawCurrent(sf::RenderTarget& target,
 			 sf::RenderStates states) const {
+  SFMLNode::drawCurrent(target, states);
   drawnCount();
 }
 
@@ -47,7 +48,6 @@ int test_Draw() {
   c2->detachChild(c21);
 
   scene->draw(target, states);
-  std::cout << "[DEBUG]Test_SFMLNode.cpp " << drawnCount::count << std::endl;
   BOOST_CHECK(drawnCount::count == 6);
 
   TestSFMLNode::Destroy(c21);

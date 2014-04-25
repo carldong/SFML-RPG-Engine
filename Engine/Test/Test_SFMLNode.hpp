@@ -7,7 +7,6 @@ class TestSFMLNode : public SFMLNode {
 public:
   void drawCurrent(sf::RenderTarget& target,
 		   sf::RenderStates states) const;
-
 };
 
 #endif // __TEST_SFML_NODE_H__
