@@ -7,9 +7,8 @@ Listener::~Listener() {
 
 MessageBus::~MessageBus() {
   std::set<Listener*>::iterator itr;
-  for (itr=mListenerSet.begin(); itr!=mListenerSet.end();
-       ++itr) {
-    (*itr)->deregister();
+  for (Listener* listener : mListenerSet) {
+    listener->deregister();
   }
   mListenerSet.clear();
 }
@@ -62,9 +61,7 @@ void MessageBus::handleQueue() {
    Broadcast a message through message bus
  */
 void MessageBus::broadcast(Message* message) {
-  std::set<Listener*>::iterator itr = mListenerSet.begin();
-  while (itr != mListenerSet.end()) {
-    (*itr)->notify(message);
-    ++itr;
+  for (Listener* listener : mListenerSet) {
+    listener->notify(message);
   }
 }

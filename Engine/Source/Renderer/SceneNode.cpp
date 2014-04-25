@@ -14,9 +14,8 @@ SceneNode::SceneNode() : mChildren(), mParent(nullptr) {
 }
 
 SceneNode::~SceneNode() {
-  for (std::set<Ptr>::iterator child=mChildren.begin();
-       child!=mChildren.end(); ++child) {
-    delete *child;
+  for (SceneNode* child : mChildren) {
+    delete child;
   }
 }
 
@@ -39,8 +38,7 @@ SceneNode::Ptr SceneNode::detachChild(SceneNode* node) {
 
 void SceneNode::updateChildren(float dT) {
   assert (dT > 0.f);
-  for (std::set<Ptr>::iterator child=mChildren.begin();
-       child!=mChildren.end(); ++child) {
-    (*child)->update(dT);
+  for (SceneNode* child : mChildren) {
+    child->update(dT);
   }
 }
