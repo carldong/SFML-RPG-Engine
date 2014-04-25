@@ -6,6 +6,7 @@
 #include <string>
 #include <cassert>
 #include <set>
+#include <iostream>
 
 class Message;
 class Listener;
@@ -37,7 +38,7 @@ template<typename T>
 class RichMessage : public Message{
 public:
   RichMessage(Type type, const T& value_, const std::string& desc_="") :
-    Message(type, desc_), value(value_) {assert(type>=Rich);}
+    Message(type, desc_), value(value_) {assert(type>=Type::Rich);}
   
 public:
   T value;
@@ -48,6 +49,7 @@ public:
 class MessageBus {
 public:
   MessageBus() {}
+  ~MessageBus();
 
   // Accessors
   size_t numListeners() const {return mListenerSet.size();}
@@ -84,6 +86,7 @@ public:
     mMessageBus = bus;
     mMessageBus->registerListener(this);
   }
+  void deregister() { mMessageBus = nullptr; }
   virtual void notify(Message* msg) {}
   
 protected:

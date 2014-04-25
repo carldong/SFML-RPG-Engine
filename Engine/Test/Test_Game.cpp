@@ -2,9 +2,10 @@
 #include <MessageBus.hpp>
 #define BOOST_TEST_MODULE Test_Game
 #include <boost/test/included/unit_test.hpp>
+#include <boost/test/execution_monitor.hpp>
 #include <boost/test/unit_test_monitor.hpp>
 #include <boost/bind.hpp>
-
+#include <iostream>
 
 using namespace boost::unit_test;
 
@@ -14,8 +15,9 @@ public:
 
   void notify(Message* msg) {
     if (!mFail && msg->type == Message::LogicTick) {
-      Message msgQuit(Message::Quit);
-      mMessageBus->post(&msgQuit);
+      Message* msgQuit = new Message(Message::Quit);
+      BOOST_REQUIRE(msgQuit->type == Message::Type::Quit);
+      mMessageBus->post(msgQuit);
     }
   }
 
@@ -27,8 +29,9 @@ int test_game_1() {
   MessageBus* bus = new MessageBus;
   Game game(bus);
   QuitListener quitListener(bus);
-  
   game.run();
+
+  delete bus;
 
   return 0;
 }

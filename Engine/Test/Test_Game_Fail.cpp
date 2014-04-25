@@ -23,16 +23,6 @@ public:
   bool mFail;
 };
 
-int test_game_1() {
-  MessageBus* bus = new MessageBus;
-  Game game(bus);
-  QuitListener quitListener(bus);
-  
-  game.run();
-
-  return 0;
-}
-
 int test_game_2() {
   MessageBus* bus = new MessageBus;
   Game game(bus);
@@ -41,6 +31,8 @@ int test_game_2() {
   
   game.run();
 
+  delete bus;
+  
   return 0;
 }
 
@@ -49,6 +41,6 @@ BOOST_AUTO_TEST_CASE(Test_Game_Fail)
 {
   unit_test_monitor_t& monitor = unit_test_monitor_t::instance();
   monitor.p_timeout.set(5);
-  monitor.execute(&test_game_1);
+  monitor.execute(&test_game_2);
 }
 

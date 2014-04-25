@@ -5,6 +5,15 @@ Listener::~Listener() {
     mMessageBus->deregisterListener(this);
 }
 
+MessageBus::~MessageBus() {
+  std::set<Listener*>::iterator itr;
+  for (itr=mListenerSet.begin(); itr!=mListenerSet.end();
+       ++itr) {
+    (*itr)->deregister();
+  }
+  mListenerSet.clear();
+}
+
 /**
    Posts a message. If the message is LogicTick, then process queue
  */
@@ -33,8 +42,12 @@ bool MessageBus::registerListener(Listener* listener) {
    @return Return true if listener is successfully removed
  */
 bool MessageBus::deregisterListener(Listener* listener) {
-  size_t result = mListenerSet.erase(listener);
-  return result == 1;
+  std::set<Listener*>::iterator itr =
+    mListenerSet.find(listener);
+  if (itr == mListenerSet.end()) return false;
+  (*itr)->deregister();
+  mListenerSet.erase(itr);
+  return true;
 }
 
 /**
@@ -45,6 +58,7 @@ void MessageBus::handleQueue() {
     Message* msg = mMessageQueue.front();
     broadcast(msg);
     mMessageQueue.pop();
+    delete msg;
   }
 }
 

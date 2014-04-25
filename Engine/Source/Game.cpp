@@ -14,18 +14,20 @@ Game::~Game() {
 void Game::run() {
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   while (!mQuitFlag) {
-    timeSinceLastUpdate = mClock.restart();
+    timeSinceLastUpdate += mClock.restart();
     while (timeSinceLastUpdate > TimePerFrame) {
       timeSinceLastUpdate -= TimePerFrame;
       // DO SOMETHING
-      Message tick(Message::LogicTick);
-      mMessageBus->post(&tick);
+      Message* tick = new Message(Message::Type::LogicTick);
+      mMessageBus->post(tick);
     }
   }
 }
 
 void Game::notify(Message* msg) {
-  if (msg->type == Message::Quit) {
+  //std::cout << "[DEBUG]Game::notify " << msg->type << std::endl;
+  if (msg->type == Message::Type::Quit) {
+    std::cout << "[DEBUG]: Quit Flag Received" << std::endl;
     mQuitFlag = true;
   }
 }
