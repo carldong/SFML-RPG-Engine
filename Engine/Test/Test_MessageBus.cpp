@@ -44,10 +44,6 @@ BOOST_AUTO_TEST_CASE(test_messagebus) {
   BOOST_CHECK(l2->mMessages[1] == msg2);
   BOOST_CHECK(l2->mMessages[2] == msg3);
   
-  delete msg1;
-  delete msg2;
-  delete msg3;
-  
   delete bus;
 }
 
