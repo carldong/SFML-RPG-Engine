@@ -72,17 +72,18 @@ IF (ENABLE_TEST)
     )
   ADD_TEST(Test_Game Test_Game)
 
-  ADD_EXECUTABLE(Test_Game_Fail Test/Test_Game_Fail.cpp)
-  TARGET_LINK_LIBRARIES ( Test_Game_Fail
-    ${LIBRARY_NAME}
-    )
-  ADD_TEST(Test_Game_Fail Test_Game_Fail)
-
   ADD_EXECUTABLE(Test_SceneNode Test/Test_SceneNode.cpp)
   TARGET_LINK_LIBRARIES(Test_SceneNode
     ${LIBRARY_NAME}
     )
   ADD_TEST(Test_SceneNode Test_SceneNode)
+
+  ADD_EXECUTABLE(Test_SFMLNode Test/Test_SFMLNode.cpp)
+  TARGET_LINK_LIBRARIES(Test_SFMLNode
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_SFMLNode Test_SFMLNode)
+  
 ENDIF()
 
 

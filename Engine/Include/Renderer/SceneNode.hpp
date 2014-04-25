@@ -21,10 +21,10 @@ public:
 public:
   void attachChild(Ptr child);
   Ptr detachChild(SceneNode* node);
-  virtual void update(float dT) {assert(dT>0.f);updateChildren(dT);}
+  virtual void update(float dT) {assert(dT>0.f);updateCurrent(dT);updateChildren(dT);}
+  virtual void updateCurrent(float dT) {}
+  void updateChildren(float dT);
 
-protected:
-  virtual void updateChildren(float dT);
 
 protected:
   std::set<Ptr> mChildren;

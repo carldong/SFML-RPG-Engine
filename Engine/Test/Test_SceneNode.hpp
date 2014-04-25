@@ -4,7 +4,7 @@
 class TestSceneNode : public SceneNode {
 public:
   TestSceneNode() : SceneNode(), updated(false) {}
-  void update(float dT);
+  void updateCurrent(float dT);
 public:
   bool updated;
 };

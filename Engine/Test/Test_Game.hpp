@@ -5,17 +5,14 @@
 
 class QuitListener : public Listener {
 public:
-  QuitListener(MessageBus* bus) : Listener(bus), mFail(false){}
+  QuitListener(MessageBus* bus) : Listener(bus){}
 
   void notify(Message* msg) {
-    if (!mFail && msg->type == Message::LogicTick) {
+    if (msg->type == Message::LogicTick) {
       Message* msgQuit = new Message(Message::Quit);
       mMessageBus->post(msgQuit);
     }
   }
-
-  // To make a fail test case
-  bool mFail;
 };
 
 

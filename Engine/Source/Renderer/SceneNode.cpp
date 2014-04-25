@@ -3,6 +3,7 @@
 std::set<SceneNode::Ptr> SceneNode::sNodes;
 
 void SceneNode::Destroy(SceneNode* node) {
+  assert (node->mParent == nullptr);
   size_t result = sNodes.erase(node);
   assert (result != 0);
   delete node;
@@ -22,7 +23,8 @@ SceneNode::~SceneNode() {
 void SceneNode::attachChild(Ptr child) {
   assert (child != nullptr);
   child->mParent = this;
-  mChildren.insert(child);
+  bool success = mChildren.insert(child).second;
+  assert (success);
 }
 
 SceneNode::Ptr SceneNode::detachChild(SceneNode* node) {

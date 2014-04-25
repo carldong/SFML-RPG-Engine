@@ -7,8 +7,7 @@
 #include "Test_SceneNode.hpp"
 using namespace boost::unit_test;
 
-void TestSceneNode::update(float dT) {
-  updateChildren(dT);
+void TestSceneNode::updateCurrent(float dT) {
   updated = true;
 }
 
@@ -34,7 +33,7 @@ int test_construct() {
   c22->attachChild(c223);
 
   c2->detachChild(c21);
-  TestSceneNode::Destroy(c21);
+  c1->attachChild(c21);
   c2->detachChild(c22);
   TestSceneNode::Destroy(c22);
 
