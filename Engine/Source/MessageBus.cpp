@@ -27,27 +27,22 @@ void MessageBus::post(Message* message) {
 
 /**
    Register a listener
-
-   @return Return true if listener is successfully registered
  */
-bool MessageBus::registerListener(Listener* listener) {
+void MessageBus::registerListener(Listener* listener) {
   std::pair<std::set<Listener*>::iterator, bool> result =
     mListenerSet.insert(listener);
-  return result.second;
+  assert (result.second);
 }
 
 /**
    Deregister a listener
-
-   @return Return true if listener is successfully removed
  */
-bool MessageBus::deregisterListener(Listener* listener) {
+void MessageBus::deregisterListener(Listener* listener) {
   std::set<Listener*>::iterator itr =
     mListenerSet.find(listener);
-  if (itr == mListenerSet.end()) return false;
+  assert (itr != mListenerSet.end());
   (*itr)->deregister();
   mListenerSet.erase(itr);
-  return true;
 }
 
 /**

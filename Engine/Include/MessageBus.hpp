@@ -57,8 +57,8 @@ public:
 
   // Actions
   void post(Message* message);
-  bool registerListener(Listener* listener);
-  bool deregisterListener(Listener* listener);
+  void registerListener(Listener* listener);
+  void deregisterListener(Listener* listener);
 
 private:
   void handleQueue();
@@ -74,7 +74,7 @@ private:
 class Listener {
 public:
   Listener() : mMessageBus(nullptr) {}
-  Listener(MessageBus* bus) : mMessageBus(bus) {
+  Listener(MessageBus* bus) : mMessageBus(nullptr) {
     registerTo(bus);
   }
   ~Listener();

@@ -1,6 +1,7 @@
 #include <MessageBus.hpp>
 #define BOOST_TEST_MODULE Test_MessageBus
 #include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test_monitor.hpp>
 
 using namespace boost::unit_test;
 
@@ -14,12 +15,7 @@ public:
   std::vector<Message*> mMessages;
 };
 
-void test_testsuite() {
-  BOOST_CHECK(true);
-}
-
-BOOST_AUTO_TEST_CASE(test_messagebus) {
-
+int test_messagebus_method() {
   MessageBus* bus = new MessageBus;
   
   Test_Listener* l1 = new Test_Listener(bus);
@@ -45,5 +41,12 @@ BOOST_AUTO_TEST_CASE(test_messagebus) {
   BOOST_CHECK(l2->mMessages[2] == msg3);
   
   delete bus;
+  return 0;
+}
+
+BOOST_AUTO_TEST_CASE(test_messagebus) {
+  unit_test_monitor_t& monitor = unit_test_monitor_t::instance();
+  monitor.p_timeout.set(1);
+  monitor.execute(&test_messagebus_method);
 }
 
