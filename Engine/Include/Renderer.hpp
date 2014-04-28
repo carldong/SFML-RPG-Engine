@@ -6,6 +6,7 @@
 
 #include <MessageBus.hpp>
 #include <Renderer/SceneNode.hpp>
+#include <Renderer/Scene.hpp>
 
 /**
    This is the Listener to actually render graphics.
