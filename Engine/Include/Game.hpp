@@ -9,16 +9,17 @@
 class Game : public Listener {
 public:
   Game(MessageBus* bus);
-  ~Game();
   void run();
   void notify(Message* msg);
 
 public:
-  const sf::Time TimePerFrame = sf::seconds(1.f/60.f);
+  static const sf::Time TimePerFrame;
 private:
   MessageBus* mMessageBus;
   bool mQuitFlag;
   sf::Clock mClock;
 };
+
+const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 #endif // __GAME_H__

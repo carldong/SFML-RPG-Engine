@@ -16,6 +16,9 @@ public:
   Renderer(unsigned int width, unsigned int height,
 	   const std::string& title);
 
+  // Accessors
+  Scene& getScene() {return mScene;}
+
   // Events
   void processEvents();
   // Listeners
@@ -25,6 +28,7 @@ public:
 private:
   sf::RenderWindow mWindow;
   sf::Clock mClock;
+  Scene mScene;
 };
 
 #endif // __RENDERER_H__

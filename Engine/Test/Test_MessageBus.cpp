@@ -3,6 +3,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/unit_test_monitor.hpp>
 
+#include <memory>
+
 using namespace boost::unit_test;
 
 class Test_Listener : public Listener {
@@ -21,12 +23,13 @@ int test_messagebus_method() {
   Test_Listener* l1 = new Test_Listener(bus);
   Test_Listener* l2 = new Test_Listener(bus);
 
-  Message* msg1 = new Message(Message::Rich);
-  RichMessage<int>* msg2 = new RichMessage<int>(Message::Rich, 0);
+  Message* msg1 = new Message(Message::Pause);
+  Message* msg2 = new RichMessage<int>(Message::Rich, 0);
   Message* msg3 = new Message(Message::LogicTick);
 
-  BOOST_CHECK(msg1->type == Message::Rich);
-  BOOST_CHECK(msg2->type == Message::Rich && msg2->value == 0);
+  BOOST_CHECK(msg1->type == Message::Pause);
+  BOOST_CHECK(msg2->type == Message::Rich &&
+	      static_cast<RichMessage<int>*>(msg2)->value == 0);
   BOOST_CHECK(msg3->type == Message::LogicTick);
 
   bus->post(msg1);

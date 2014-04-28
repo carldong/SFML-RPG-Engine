@@ -9,9 +9,9 @@ using namespace boost::unit_test;
 
 int test_game_1() {
   MessageBus* bus = new MessageBus;
-  Game game(bus);
-  QuitListener quitListener(bus);
-  game.run();
+  Game* game = new Game(bus);
+  QuitListener* quitListener = new QuitListener(bus);
+  game->run();
 
   delete bus;
 

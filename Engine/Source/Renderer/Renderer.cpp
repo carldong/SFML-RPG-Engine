@@ -1,3 +1,4 @@
+#include <Game.hpp>
 #include <Renderer.hpp>
 
 /**
@@ -9,7 +10,8 @@
  */
 Renderer::Renderer(unsigned int width, unsigned int height,
 		   const std::string& title) :
-  mWindow(sf::VideoMode(width, height), title){
+  mWindow(sf::VideoMode(width, height), title),
+  mScene(mWindow) {
 }
 
 /**
@@ -30,6 +32,13 @@ void Renderer::processEvents() {
    Update scene
  */
 void Renderer::update() {
+  sf::Time timeSinceLastUpdate = sf::Time::Zero;
+  timeSinceLastUpdate += mClock.restart();
+  while (timeSinceLastUpdate > Game::TimePerFrame) {
+    timeSinceLastUpdate -= Game::TimePerFrame;
+    mScene.update(Game::TimePerFrame.asSeconds());
+  }
+  mScene.draw();
 }
 
 void Renderer::notify(Message* msg) {

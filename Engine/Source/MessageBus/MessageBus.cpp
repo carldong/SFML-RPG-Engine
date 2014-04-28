@@ -12,9 +12,9 @@ Listener::~Listener() {
    Destructor of MessageBus. Deregisters every listener.
  */
 MessageBus::~MessageBus() {
-  std::set<Listener*>::iterator itr;
   for (Listener* listener : mListenerSet) {
     listener->deregister();
+    delete listener;
   }
   mListenerSet.clear();
 }

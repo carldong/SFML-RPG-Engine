@@ -6,10 +6,6 @@ Game::Game(MessageBus* bus){
   registerTo(bus);
 }
 
-Game::~Game() {
-
-}
-
 /**
    The main game loop. Sends LogicTick message after interval to drive
    MessageBus
@@ -29,7 +25,6 @@ void Game::run() {
 }
 
 void Game::notify(Message* msg) {
-  //std::cout << "[DEBUG]Game::notify " << msg->type << std::endl;
   if (msg->type == Message::Type::Quit) {
     mQuitFlag = true;
   }
