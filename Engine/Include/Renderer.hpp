@@ -17,8 +17,13 @@ public:
            unsigned int width, unsigned int height,
 	   const std::string& title);
 
+  ~Renderer();
+
   // Accessors
-  Scene& getScene() {return mScene;}
+  Scene* getScene() {return mScene;}
+
+  // Modifiers
+  Scene* setScene(Scene* scene_);
 
   // Events
   void processEvents();
@@ -29,7 +34,7 @@ public:
 private:
   sf::RenderWindow mWindow;
   sf::Clock mClock;
-  Scene mScene;
+  Scene* mScene;
 };
 
 #endif // __RENDERER_H__

@@ -5,7 +5,7 @@
 
 class TestScene : public Scene {
 public:
-  explicit TestScene(sf::RenderWindow& window) :
+  explicit TestScene(sf::RenderWindow* window) :
     Scene(window) {}
   void buildScene() {}
 };

@@ -13,8 +13,26 @@ Renderer::Renderer(MessageBus* bus,
                    unsigned int width, unsigned int height,
 		   const std::string& title) :
   Listener(bus),
-  mWindow(sf::VideoMode(width, height), title),
-  mScene(mWindow) {}
+  mWindow(sf::VideoMode(width, height), title)
+{
+  mScene = new Scene(&mWindow);
+}
+
+Renderer::~Renderer() {
+  delete mScene;
+}
+
+/**
+   Set another scene as the main scene. Changes the scene's window,
+   and returns the pointer to old scene
+ */
+Scene* Renderer::setScene(Scene* scene_) {
+  assert (scene_ != nullptr);
+  Scene* pOldScene = mScene;
+  mScene = scene_;
+  mScene->setWindow(&mWindow);
+  return pOldScene;
+}
 
 /**
    Processes events from SFML window
@@ -38,9 +56,9 @@ void Renderer::update() {
   timeSinceLastUpdate += mClock.restart();
   while (timeSinceLastUpdate > Game::TimePerFrame) {
     timeSinceLastUpdate -= Game::TimePerFrame;
-    mScene.update(Game::TimePerFrame.asSeconds());
+    mScene->update(Game::TimePerFrame.asSeconds());
   }
-  mScene.draw();
+  mScene->draw();
 }
 
 void Renderer::notify(Message* msg) {

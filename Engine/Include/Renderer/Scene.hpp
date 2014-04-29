@@ -7,15 +7,20 @@
 
 class Scene : private sf::NonCopyable {
 public:
-  explicit Scene(sf::RenderWindow& window) :
+  explicit Scene(sf::RenderWindow* window) :
     mWindow(window),
-    mSceneView(window.getDefaultView()) {}
+    mSceneView(window->getDefaultView()) {}
+
+  // Modifiers
+  void setWindow(sf::RenderWindow* window_) {mWindow = window_;}
+
+  // Updates
   virtual void update(float dT) {assert(dT>0.f); mSceneGraph.update(dT);}
-  virtual void draw() {mWindow.setView(mSceneView); mWindow.draw(mSceneGraph);}
+  virtual void draw() {mWindow->setView(mSceneView); mWindow->draw(mSceneGraph);}
   virtual void buildScene() {}
 
 protected:
-  sf::RenderWindow& mWindow;
+  sf::RenderWindow* mWindow;
   sf::View mSceneView;
   SFMLNode mSceneGraph;
 };
