@@ -4,7 +4,7 @@
 /**
    Constructor of Renderer
 
-   @param bus The messagebus
+   @param bus Pointer to messagebus
    @param width Window width
    @param height Window height
    @param title Window title
@@ -25,6 +25,8 @@ Renderer::~Renderer() {
 /**
    Set another scene as the main scene. Changes the scene's window,
    and returns the pointer to old scene
+
+   @param scene_ Pointer to another scene
  */
 Scene* Renderer::setScene(Scene* scene_) {
   assert (scene_ != nullptr);
