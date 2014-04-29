@@ -80,7 +80,7 @@ private:
  */
 class Listener {
 public:
-  Listener() : mMessageBus(nullptr) {}
+  //Listener() : mMessageBus(nullptr) {}
   Listener(MessageBus* bus) : mMessageBus(nullptr) {
     registerTo(bus);
   }

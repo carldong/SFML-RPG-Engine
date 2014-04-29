@@ -4,15 +4,17 @@
 /**
    Constructor of Renderer
 
+   @param bus The messagebus
    @param width Window width
    @param height Window height
    @param title Window title
  */
-Renderer::Renderer(unsigned int width, unsigned int height,
+Renderer::Renderer(MessageBus* bus,
+                   unsigned int width, unsigned int height,
 		   const std::string& title) :
+  Listener(bus),
   mWindow(sf::VideoMode(width, height), title),
-  mScene(mWindow) {
-}
+  mScene(mWindow) {}
 
 /**
    Processes events from SFML window

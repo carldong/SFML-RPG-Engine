@@ -66,6 +66,13 @@ IF (ENABLE_TEST)
     ${LIBRARY_NAME}
     )
   ADD_TEST(Test_Messagebus Test_MessageBus)
+  
+  # Game and Messagebus
+  ADD_EXECUTABLE(Test_Game Test/Test_Game.cpp)
+  TARGET_LINK_LIBRARIES ( Test_Game
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Game Test_Game)  
 
   ADD_EXECUTABLE(Test_SceneNode Test/Test_SceneNode.cpp)
   TARGET_LINK_LIBRARIES(Test_SceneNode
@@ -86,13 +93,13 @@ IF (ENABLE_TEST)
     ${LIBRARY_NAME}
     )
   ADD_TEST(Test_Scene Test_Scene)
-  
-  # Game and Messagebus
-  ADD_EXECUTABLE(Test_Game Test/Test_Game.cpp)
-  TARGET_LINK_LIBRARIES ( Test_Game
+
+  # With X
+  ADD_EXECUTABLE(Test_Renderer Test/Test_Renderer.cpp)
+  TARGET_LINK_LIBRARIES(Test_Renderer
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_Game Test_Game)
+  ADD_TEST(Test_Renderer Test_Renderer)
   
 ENDIF()
 

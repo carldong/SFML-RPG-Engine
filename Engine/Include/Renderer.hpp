@@ -13,7 +13,8 @@
  */
 class Renderer : public Listener {
 public:
-  Renderer(unsigned int width, unsigned int height,
+  Renderer(MessageBus* bus,
+           unsigned int width, unsigned int height,
 	   const std::string& title);
 
   // Accessors

@@ -1,6 +1,6 @@
 #include <Game.hpp>
 
-Game::Game(MessageBus* bus){
+Game::Game(MessageBus* bus) : Listener(bus){
   mMessageBus = bus;
   mQuitFlag = false;
   registerTo(bus);
@@ -18,14 +18,14 @@ void Game::run() {
     while (timeSinceLastUpdate > TimePerFrame) {
       timeSinceLastUpdate -= TimePerFrame;
       // DO SOMETHING
-      Message* tick = new Message(Message::Type::LogicTick);
+      Message* tick = new Message(Message::LogicTick);
       mMessageBus->post(tick);
     }
   }
 }
 
 void Game::notify(Message* msg) {
-  if (msg->type == Message::Type::Quit) {
+  if (msg->type == Message::Quit) {
     mQuitFlag = true;
   }
 }

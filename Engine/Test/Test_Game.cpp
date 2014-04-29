@@ -21,7 +21,7 @@ int test_game_1() {
 
 BOOST_AUTO_TEST_CASE(Test_Game_Success) {
   unit_test_monitor_t& monitor = unit_test_monitor_t::instance();
-  monitor.p_timeout.set(5);
+  monitor.p_timeout.set(3);
   monitor.execute(&test_game_1);
 }
 

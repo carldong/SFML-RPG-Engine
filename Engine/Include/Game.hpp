@@ -9,12 +9,12 @@
 class Game : public Listener {
 public:
   Game(MessageBus* bus);
-  void run();
-  void notify(Message* msg);
+  virtual void run();
+  virtual void notify(Message* msg);
 
 public:
   static const sf::Time TimePerFrame;
-private:
+protected:
   MessageBus* mMessageBus;
   bool mQuitFlag;
   sf::Clock mClock;
