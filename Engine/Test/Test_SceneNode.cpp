@@ -14,28 +14,37 @@ void TestSceneNode::updateCurrent(float dT) {
 int test_construct() {
   TestSceneNode* scene = new TestSceneNode();
 
-  TestSceneNode* c1 = new TestSceneNode();
-  TestSceneNode* c2 = new TestSceneNode();
+  SceneNode* c1Node = new TestSceneNode();
+  SceneNode* c2Node = new TestSceneNode();
 
-  TestSceneNode* c11 = new TestSceneNode();
-  TestSceneNode* c21 = new TestSceneNode();
-  TestSceneNode* c22 = new TestSceneNode();
+  SceneNode* c11Node = new TestSceneNode();
+  SceneNode* c21Node = new TestSceneNode();
+  SceneNode* c22Node = new TestSceneNode();
 
-  TestSceneNode* c223 = new TestSceneNode();
+  SceneNode* c223Node = new TestSceneNode();
 
-  scene->attachChild(c1);
-  scene->attachChild(c2);
+  SceneNode::Ptr c1(c1Node);
+  SceneNode::Ptr c2(c2Node);
 
-  c1->attachChild(c11);
-  c2->attachChild(c21);
-  c2->attachChild(c22);
+  SceneNode::Ptr c11(c11Node);
+  SceneNode::Ptr c21(c21Node);
+  SceneNode::Ptr c22(c22Node);
 
-  c22->attachChild(c223);
+  SceneNode::Ptr c223(c223Node);
 
-  c2->detachChild(c21);
-  c1->attachChild(c21);
-  c2->detachChild(c22);
-  TestSceneNode::Destroy(c22);
+  scene->attachChild(std::move(c1));
+  scene->attachChild(std::move(c2));
+
+  c1Node->attachChild(std::move(c11));
+  c2Node->attachChild(std::move(c21));
+  c2Node->attachChild(std::move(c22));
+
+  c22Node->attachChild(std::move(c223));
+
+  c21 = c2Node->detachChild(*c21Node);
+  c1Node->attachChild(std::move(c21));
+  c2Node->detachChild(*c22Node);
+  //TestSceneNode::Destroy(c22);
 
   delete scene;
 
@@ -45,37 +54,46 @@ int test_construct() {
 int test_Update() {
   TestSceneNode* scene = new TestSceneNode();
 
-  TestSceneNode* c1 = new TestSceneNode();
-  TestSceneNode* c2 = new TestSceneNode();
+  SceneNode* c1Node = new TestSceneNode();
+  SceneNode* c2Node = new TestSceneNode();
 
-  TestSceneNode* c11 = new TestSceneNode();
-  TestSceneNode* c21 = new TestSceneNode();
-  TestSceneNode* c22 = new TestSceneNode();
+  SceneNode* c11Node = new TestSceneNode();
+  SceneNode* c21Node = new TestSceneNode();
+  SceneNode* c22Node = new TestSceneNode();
 
-  TestSceneNode* c223 = new TestSceneNode();
+  SceneNode* c223Node = new TestSceneNode();
 
-  scene->attachChild(c1);
-  scene->attachChild(c2);
+  SceneNode::Ptr c1(c1Node);
+  SceneNode::Ptr c2(c2Node);
 
-  c1->attachChild(c11);
-  c2->attachChild(c21);
-  c2->attachChild(c22);
+  SceneNode::Ptr c11(c11Node);
+  SceneNode::Ptr c21(c21Node);
+  SceneNode::Ptr c22(c22Node);
 
-  c22->attachChild(c223);
+  SceneNode::Ptr c223(c223Node);
 
-  c2->detachChild(c21);
+  scene->attachChild(std::move(c1));
+  scene->attachChild(std::move(c2));
+
+  c1Node->attachChild(std::move(c11));
+  c2Node->attachChild(std::move(c21));
+  c2Node->attachChild(std::move(c22));
+
+  c22Node->attachChild(std::move(c223));
+
+  c21 = c2Node->detachChild(*c21Node);
 
   scene->update(0.1f);
 
-  BOOST_CHECK(scene->updated);
-  BOOST_CHECK(c1->updated);
-  BOOST_CHECK(c2->updated);
-  BOOST_CHECK(c11->updated);
-  BOOST_CHECK(!c21->updated);
-  BOOST_CHECK(c22->updated);
-  BOOST_CHECK(c223->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(scene)->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(c1Node)->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(c2Node)->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(c11Node)->updated);
+  BOOST_CHECK(!static_cast<TestSceneNode*>(c21Node)->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(c22Node)->updated);
+  BOOST_CHECK(static_cast<TestSceneNode*>(c223Node)->updated);
 
-  TestSceneNode::Destroy(c21);
+  //TestSceneNode::Destroy(c21);
   delete scene;
 
   return 0;

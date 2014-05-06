@@ -27,30 +27,39 @@ int test_Draw() {
   sf::RenderStates states;
   TestSFMLNode* scene = new TestSFMLNode(); // 1
 
-  TestSFMLNode* c1 = new TestSFMLNode();
-  TestSFMLNode* c2 = new TestSFMLNode();
+  TestSFMLNode* c1Node = new TestSFMLNode();
+  TestSFMLNode* c2Node = new TestSFMLNode();
 
-  TestSFMLNode* c11 = new TestSFMLNode();
-  TestSFMLNode* c21 = new TestSFMLNode();
-  TestSFMLNode* c22 = new TestSFMLNode();
+  TestSFMLNode* c11Node = new TestSFMLNode();
+  TestSFMLNode* c21Node = new TestSFMLNode();
+  TestSFMLNode* c22Node = new TestSFMLNode();
 
-  TestSFMLNode* c223 = new TestSFMLNode();
+  TestSFMLNode* c223Node = new TestSFMLNode();
 
-  scene->attachChild(c1); // 2
-  scene->attachChild(c2); // 3
+  SceneNode::Ptr c1(c1Node);
+  SceneNode::Ptr c2(c2Node);
 
-  c1->attachChild(c11);		// 4
-  c2->attachChild(c21);		
-  c2->attachChild(c22);		// 5
+  SceneNode::Ptr c11(c11Node);
+  SceneNode::Ptr c21(c21Node);
+  SceneNode::Ptr c22(c22Node);
 
-  c22->attachChild(c223);	// 6
+  SceneNode::Ptr c223(c223Node);
 
-  c2->detachChild(c21);
+  scene->attachChild(std::move(c1)); // 2
+  scene->attachChild(std::move(c2)); // 3
+
+  c1Node->attachChild(std::move(c11));		// 4
+  c2Node->attachChild(std::move(c21));		
+  c2Node->attachChild(std::move(c22));		// 5
+
+  c22Node->attachChild(std::move(c223));	// 6
+
+  c21 = c2Node->detachChild(*c21Node);
 
   scene->draw(target, states);
   BOOST_CHECK(drawnCount::count == 6);
 
-  TestSFMLNode::Destroy(c21);
+  //TestSFMLNode::Destroy(c21);
   delete scene;
 
   return 0;

@@ -20,7 +20,7 @@ void SFMLNode::drawCurrent(sf::RenderTarget& target,
  */
 void SFMLNode::drawChildren(sf::RenderTarget& target,
 			   sf::RenderStates states) const {
-  for (SceneNode* child : mChildren) {
-    static_cast<SFMLNode*>(child)->draw(target, states);
+  for (const Ptr& child : mChildren) {
+    static_cast<SFMLNode*>(child.get())->draw(target, states);
   }
 }

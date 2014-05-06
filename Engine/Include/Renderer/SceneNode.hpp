@@ -11,28 +11,31 @@
  */
 class SceneNode {
 public:
-  typedef SceneNode* Ptr;
+  //typedef SceneNode* Ptr;
+  typedef std::unique_ptr<SceneNode> Ptr;
+  typedef std::vector<Ptr> Container;
 
 public:
   // Class Methods
-  static void Destroy(SceneNode* node);
+  //static void Destroy(SceneNode* node);
 
   // Constructor and destructor
   SceneNode();
-  ~SceneNode();
+  //~SceneNode();
 
 public:
   void attachChild(Ptr child);
-  Ptr detachChild(SceneNode* node);
+  //Ptr detachChild(SceneNode* node);
+  Ptr detachChild(const SceneNode& node);
   virtual void update(float dT);
   virtual void updateCurrent(float dT);
   void updateChildren(float dT);
 
 
 protected:
-  std::set<Ptr> mChildren;
+  Container mChildren;
   SceneNode* mParent;
-  static std::set<Ptr> sNodes;
+  static Container sNodes;
 };
 
 #endif // __SCENENODE_H__
