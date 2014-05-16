@@ -2,6 +2,7 @@
 #define __RESOURCES_H__
 
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 #include <memory>
 #include <cassert>
 #include <map>

@@ -41,6 +41,7 @@ TARGET_LINK_LIBRARIES(${LIBRARY_NAME}
 TARGET_LINK_LIBRARIES(${EXECUTABLE_NAME} ${LIBRARY_NAME})
 
 IF (ENABLE_TEST)
+  CONFIGURE_FILE(Test/assets/test_texture.png Test/assets/test_texture.png COPYONLY)
   ENABLE_TESTING()
   FIND_PACKAGE(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
   INCLUDE_DIRECTORIES(
@@ -55,51 +56,58 @@ IF (ENABLE_TEST)
     )
 
   # Make sure test suite works
-  ADD_EXECUTABLE(Test_TestSuite Test/Test_TestSuite.cpp)
-  TARGET_LINK_LIBRARIES ( Test_TestSuite
+  ADD_EXECUTABLE(Test/Test_TestSuite Test/Test_TestSuite.cpp)
+  TARGET_LINK_LIBRARIES ( Test/Test_TestSuite
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_TestSuite Test_TestSuite)
+  ADD_TEST(Test_TestSuite Test/Test_TestSuite)
   
-  ADD_EXECUTABLE(Test_MessageBus Test/Test_MessageBus.cpp)
-  TARGET_LINK_LIBRARIES ( Test_MessageBus
+  ADD_EXECUTABLE(Test/Test_MessageBus Test/Test_MessageBus.cpp)
+  TARGET_LINK_LIBRARIES ( Test/Test_MessageBus
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_Messagebus Test_MessageBus)
+  ADD_TEST(Test_Messagebus Test/Test_MessageBus)
   
   # Game and Messagebus
-  ADD_EXECUTABLE(Test_Game Test/Test_Game.cpp)
-  TARGET_LINK_LIBRARIES ( Test_Game
+  ADD_EXECUTABLE(Test/Test_Game Test/Test_Game.cpp)
+  TARGET_LINK_LIBRARIES ( Test/Test_Game
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_Game Test_Game)  
+  ADD_TEST(Test_Game Test/Test_Game)  
 
-  ADD_EXECUTABLE(Test_SceneNode Test/Test_SceneNode.cpp)
-  TARGET_LINK_LIBRARIES(Test_SceneNode
+  ADD_EXECUTABLE(Test/Test_SceneNode Test/Test_SceneNode.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_SceneNode
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_SceneNode Test_SceneNode)
-
-  # With X
-  ADD_EXECUTABLE(Test_SFMLNode Test/Test_SFMLNode.cpp)
-  TARGET_LINK_LIBRARIES(Test_SFMLNode
-    ${LIBRARY_NAME}
-    )
-  ADD_TEST(Test_SFMLNode Test_SFMLNode)
+  ADD_TEST(Test_SceneNode Test/Test_SceneNode)
 
   # With X
-  ADD_EXECUTABLE(Test_Scene Test/Test_Scene.cpp)
-  TARGET_LINK_LIBRARIES(Test_Scene
+  ADD_EXECUTABLE(Test/Test_SFMLNode Test/Test_SFMLNode.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_SFMLNode
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_Scene Test_Scene)
+  ADD_TEST(Test_SFMLNode Test/Test_SFMLNode)
 
   # With X
-  ADD_EXECUTABLE(Test_Renderer Test/Test_Renderer.cpp)
-  TARGET_LINK_LIBRARIES(Test_Renderer
+  ADD_EXECUTABLE(Test/Test_Scene Test/Test_Scene.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_Scene
     ${LIBRARY_NAME}
     )
-  ADD_TEST(Test_Renderer Test_Renderer)
+  ADD_TEST(Test_Scene Test/Test_Scene)
+
+  # With X
+  ADD_EXECUTABLE(Test/Test_Renderer Test/Test_Renderer.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_Renderer
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Renderer Test/Test_Renderer)
+
+  # With X
+  ADD_EXECUTABLE(Test/Test_Resources Test/Test_Resources.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_Resources
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Resources Test/Test_Resources)
   
 ENDIF()
 
