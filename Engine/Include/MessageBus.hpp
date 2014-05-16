@@ -26,12 +26,11 @@ public:
   };
 
 public:
-  Message(Type type_, const std::string& desc_="") :
-    type(type_), desc(desc_) {} 
+  Message(Type _type) :
+    type(_type){} 
 
 public:
   Type type;
-  std::string desc;
 };
 
 /**
@@ -40,8 +39,8 @@ public:
 template<typename T>
 class RichMessage : public Message{
 public:
-  RichMessage(Type type, const T& value_, const std::string& desc_="") :
-    Message(type, desc_), value(value_) {assert(type>=Type::Rich);}
+  RichMessage(const T& _value) :
+    Message(Message::Rich), value(_value) {}
   
 public:
   T value;

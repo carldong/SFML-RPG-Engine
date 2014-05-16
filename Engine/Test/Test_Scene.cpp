@@ -8,9 +8,8 @@ using namespace boost::unit_test;
 
 int test_construct() {
   sf::RenderWindow window;
-  TestScene* scene = new TestScene(&window);
+  TestScene scene(&window);
   
-  delete scene;
   return 0;
 }
 

@@ -7,17 +7,23 @@ using namespace boost::unit_test;
 #include "Test_Renderer.hpp"
 
 int test_Renderer_construct() {
-  MessageBus* pMessageBus = new MessageBus();
-  Game* pGame = new TestGame(pMessageBus);
-  Renderer* pRenderer = new Renderer(pMessageBus,
-                                     640, 480, "Test Renderer Construct");
+  MessageBus bus;
+  TestGame game(&bus);
+  Renderer renderer(&bus,
+                     640, 480, "Test Renderer Construct");
 
-  pGame->run();
+  game.run();
   
-  delete pRenderer;
-  delete pGame;
-  delete pMessageBus;
+  return 0;
+}
+
+int test_Renderer_scene1() {
+  MessageBus bus;
+  TestGame game(&bus);
+  Renderer renderer(&bus,
+                    640, 480, "Test Renderer Scene 1");
   
+
   return 0;
 }
 

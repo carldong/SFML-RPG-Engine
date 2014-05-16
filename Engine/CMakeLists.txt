@@ -89,6 +89,13 @@ IF (ENABLE_TEST)
   ADD_TEST(Test_SFMLNode Test/Test_SFMLNode)
 
   # With X
+  ADD_EXECUTABLE(Test/Test_Resources Test/Test_Resources.cpp)
+  TARGET_LINK_LIBRARIES(Test/Test_Resources
+    ${LIBRARY_NAME}
+    )
+  ADD_TEST(Test_Resources Test/Test_Resources)
+  
+  # With X
   ADD_EXECUTABLE(Test/Test_Scene Test/Test_Scene.cpp)
   TARGET_LINK_LIBRARIES(Test/Test_Scene
     ${LIBRARY_NAME}
@@ -102,13 +109,6 @@ IF (ENABLE_TEST)
     )
   ADD_TEST(Test_Renderer Test/Test_Renderer)
 
-  # With X
-  ADD_EXECUTABLE(Test/Test_Resources Test/Test_Resources.cpp)
-  TARGET_LINK_LIBRARIES(Test/Test_Resources
-    ${LIBRARY_NAME}
-    )
-  ADD_TEST(Test_Resources Test/Test_Resources)
-  
 ENDIF()
 
 

@@ -17,8 +17,6 @@ public:
            unsigned int width, unsigned int height,
 	   const std::string& title);
 
-  ~Renderer();
-
   // Accessors
   Scene* getScene() {return mScene;}
 

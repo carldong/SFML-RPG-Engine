@@ -24,15 +24,15 @@ load(Identifier id, const std::string& filename, const Parameter& secondParam) {
 }
 
 template<typename Resource, typename Identifier>
-Resource& ResourceHolder<Resource,Identifier>::get(Identifier id) {
+Resource* ResourceHolder<Resource,Identifier>::get(Identifier id) {
   auto found = mResourceMap.find(id);
   assert (found != mResourceMap.end());
-  return *found->second;
+  return found->second.get();
 }
 
 template<typename Resource, typename Identifier>
-const Resource& ResourceHolder<Resource,Identifier>::get(Identifier id) const{
+const Resource* ResourceHolder<Resource,Identifier>::get(Identifier id) const{
   auto found = mResourceMap.find(id);
   assert (found != mResourceMap.end());
-  return *found->second;
+  return found->second.get();
 }

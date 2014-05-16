@@ -18,10 +18,6 @@ Renderer::Renderer(MessageBus* bus,
   mScene = new Scene(&mWindow);
 }
 
-Renderer::~Renderer() {
-  delete mScene;
-}
-
 /**
    Set another scene as the main scene. Changes the scene's window,
    and returns the pointer to old scene

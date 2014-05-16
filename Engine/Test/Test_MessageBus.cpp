@@ -18,13 +18,13 @@ public:
 };
 
 int test_messagebus_method() {
-  MessageBus* bus = new MessageBus;
+  MessageBus bus;
   
-  Test_Listener* l1 = new Test_Listener(bus);
-  Test_Listener* l2 = new Test_Listener(bus);
+  Test_Listener* l1 = new Test_Listener(&bus);
+  Test_Listener* l2 = new Test_Listener(&bus);
 
   Message* msg1 = new Message(Message::Pause);
-  Message* msg2 = new RichMessage<int>(Message::Rich, 0);
+  Message* msg2 = new RichMessage<int>(0);
   Message* msg3 = new Message(Message::LogicTick);
 
   BOOST_CHECK(msg1->type == Message::Pause);
@@ -32,9 +32,9 @@ int test_messagebus_method() {
 	      static_cast<RichMessage<int>*>(msg2)->value == 0);
   BOOST_CHECK(msg3->type == Message::LogicTick);
 
-  bus->post(msg1);
-  bus->post(msg2);
-  bus->post(msg3);
+  bus.post(msg1);
+  bus.post(msg2);
+  bus.post(msg3);
 
   BOOST_CHECK(l1->mMessages[0] == msg1);
   BOOST_CHECK(l1->mMessages[1] == msg2);
@@ -45,7 +45,6 @@ int test_messagebus_method() {
   BOOST_CHECK(static_cast<RichMessage<int>*>(l2->mMessages[1])->value == 0);
   BOOST_CHECK(l2->mMessages[2] == msg3);
   
-  delete bus;
   return 0;
 }
 
