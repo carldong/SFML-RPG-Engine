@@ -1,6 +1,8 @@
 #ifndef __RENDERER_H__
 #define __RENDERER_H__
 
+#include <memory>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
@@ -13,15 +15,18 @@
  */
 class Renderer : public Listener {
 public:
+  typedef std::unique_ptr<Scene> Ptr;
+  
+public:
   Renderer(MessageBus* bus,
            unsigned int width, unsigned int height,
 	   const std::string& title);
 
   // Accessors
-  Scene* getScene() {return mScene;}
+  Scene* getScene() {return mScene.get();}
 
   // Modifiers
-  Scene* setScene(Scene* scene_);
+  Ptr setScene(Ptr _scene);
 
   // Events
   void processEvents();
@@ -32,7 +37,7 @@ public:
 private:
   sf::RenderWindow mWindow;
   sf::Clock mClock;
-  Scene* mScene;
+  Ptr mScene;
 };
 
 #endif // __RENDERER_H__

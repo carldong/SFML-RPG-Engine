@@ -13,9 +13,9 @@ Renderer::Renderer(MessageBus* bus,
                    unsigned int width, unsigned int height,
 		   const std::string& title) :
   Listener(bus),
-  mWindow(sf::VideoMode(width, height), title)
+  mWindow(sf::VideoMode(width, height), title),
+  mScene(new Scene(&mWindow))
 {
-  mScene = new Scene(&mWindow);
 }
 
 /**
@@ -23,11 +23,12 @@ Renderer::Renderer(MessageBus* bus,
    and returns the pointer to old scene
 
    @param scene_ Pointer to another scene
+   @return Pointer to old scene
  */
-Scene* Renderer::setScene(Scene* scene_) {
-  assert (scene_ != nullptr);
-  Scene* pOldScene = mScene;
-  mScene = scene_;
+Renderer::Ptr Renderer::setScene(Ptr _scene) {
+  assert (_scene != nullptr);
+  Ptr pOldScene(std::move(mScene));
+  mScene = std::move(_scene);
   mScene->setWindow(&mWindow);
   return pOldScene;
 }
