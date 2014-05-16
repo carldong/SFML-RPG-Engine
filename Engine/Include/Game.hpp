@@ -8,7 +8,7 @@
 
 class Game : public Listener {
 public:
-  Game(MessageBus* bus);
+  explicit Game(MessageBus* bus);
   virtual void run();
   virtual void notify(Message* msg);
 

@@ -8,19 +8,6 @@
 #include <iostream>
 using namespace boost::unit_test;
 
-struct drawnCount {
-  drawnCount() {count++;}
-  static int count;
-};
-
-int drawnCount::count = 0;
-
-void TestSFMLNode::drawCurrent(sf::RenderTarget& target,
-			 sf::RenderStates states) const {
-  SFMLNode::drawCurrent(target, states);
-  drawnCount();
-}
-
 
 int test_Draw() {
   sf::RenderWindow target;
