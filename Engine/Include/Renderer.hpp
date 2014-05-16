@@ -8,6 +8,7 @@
 
 #include <MessageBus.hpp>
 #include <Renderer/SceneNode.hpp>
+#include <Renderer/SFMLSpriteNode.hpp>
 #include <Renderer/Scene.hpp>
 
 /**

@@ -11,8 +11,8 @@ int test_construct_add() {
 
   tex_holder.load(0, "Test/assets/test_texture.png");
 
-  sf::Texture* tex = tex_holder.get(0);
-  const sf::Texture* ctex = tex_holder.get(0);
+  sf::Texture tex = tex_holder.get(0);
+  const sf::Texture ctex = tex_holder.get(0);
   return 0;
 }
 

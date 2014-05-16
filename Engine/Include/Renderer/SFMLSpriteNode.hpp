@@ -1,7 +1,7 @@
 #ifndef __SFML_SPRITE_NODE_H__
 #define __SFML_SPRITE_NODE_H__
 
-#include "SceneNode.hpp"
+#include <Renderer/SFMLNode.hpp>
 
 class SFMLSpriteNode : public SFMLNode {
 public:

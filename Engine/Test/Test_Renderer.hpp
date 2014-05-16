@@ -25,15 +25,26 @@ private:
 // TODO: Finish this
 class TestScene : public Scene {
 public:
-  using Scene::Scene;
+  TestScene(sf::RenderWindow* window) :
+    Scene(window),
+    mSceneBounds(0.f, 0.f, mSceneView.getSize().x, mSceneView.getSize().y) {}
   void buildScene() final;
   
 private:
   TextureHolder mTextures;
+  sf::FloatRect mSceneBounds;
 };
 
 void TestScene::buildScene() {
   mTextures.load(0,"Test/assets/test_texture.png");
+  sf::Texture& texture = mTextures.get(0);
+  sf::IntRect textureRect(mSceneBounds);
+  texture.setRepeated(true);
+
+  std::unique_ptr<SFMLSpriteNode>
+    testSprite(new SFMLSpriteNode(texture, textureRect));
+  testSprite->setPosition(mSceneBounds.left, mSceneBounds.top);
+  mSceneGraph.attachChild(std::move(testSprite));
 }
 
 #endif // __TEST_RENDERER_H__

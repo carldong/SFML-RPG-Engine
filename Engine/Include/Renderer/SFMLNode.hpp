@@ -1,3 +1,6 @@
+#ifndef __SFML_NODE_H__
+#define __SFML_NODE_H__
+
 #include <Renderer/SceneNode.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -21,3 +24,5 @@ private:
 			    sf::RenderStates states) const;
 
 };
+
+#endif // __SFML_NODE_H__
