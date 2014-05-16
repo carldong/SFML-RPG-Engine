@@ -57,16 +57,22 @@ void Renderer::update() {
     timeSinceLastUpdate -= Game::TimePerFrame;
     mScene->update(Game::TimePerFrame.asSeconds());
   }
-  mScene->draw();
 }
 
 void Renderer::notify(Message* msg) {
   switch (msg->type) {
   case Message::LogicTick:
     update();
+    render();
     break;
   case Message::Quit:
     mWindow.close();
     break;
   }
+}
+
+void Renderer::render() {
+  mWindow.clear();
+  mScene->draw();
+  mWindow.display();
 }

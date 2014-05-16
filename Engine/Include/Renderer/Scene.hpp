@@ -12,7 +12,7 @@ public:
     mSceneView(window->getDefaultView()) {}
 
   // Modifiers
-  void setWindow(sf::RenderWindow* window_) {mWindow = window_;}
+  void setWindow(sf::RenderWindow* _window) {mWindow = _window;}
 
   // Updates
   virtual void update(float dT) {assert(dT>0.f); mSceneGraph.update(dT);}

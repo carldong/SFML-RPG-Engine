@@ -7,22 +7,23 @@
 
 class TestGame : public Game {
 public:
-  TestGame(MessageBus* bus) : Game(bus), mTicks(0) {}
+  TestGame(MessageBus* bus, size_t quitTicks=2) :
+    Game(bus), mTicks(0), mTicksQuit(quitTicks) {}
   void run() {
     while (!mQuitFlag) {
       mClock.restart();
-      while (mClock.getElapsedTime().asSeconds() < 0.1f); // Wait 0.5 second
+      while (mClock.getElapsedTime().asSeconds() < 0.1f); // Wait 0.1 second
       mMessageBus->post(new Message(Message::LogicTick));
       ++mTicks;
-      if (mTicks == 2) mMessageBus->post(new Message(Message::Quit));
+      if (mTicks == mTicksQuit) mMessageBus->post(new Message(Message::Quit));
     }
   }
 
 private:
   size_t mTicks;
+  size_t mTicksQuit;
 };
 
-// TODO: Finish this
 class TestScene : public Scene {
 public:
   TestScene(sf::RenderWindow* window) :

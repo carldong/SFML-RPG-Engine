@@ -34,7 +34,10 @@ public:
   // Listeners
   void update();
   void notify(Message* msg);
-  
+
+private:
+void render();
+
 private:
   sf::RenderWindow mWindow;
   sf::Clock mClock;
