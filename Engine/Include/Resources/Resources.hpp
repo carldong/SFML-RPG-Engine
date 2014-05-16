@@ -22,5 +22,7 @@ private:
   std::map<Identifier, std::unique_ptr<Resource> > mResourceMap;
 };
 
-#include "Resources_impl.hpp"
+typedef ResourceHolder<sf::Texture, size_t> TextureHolder;
+
+#include "Resources/Resources_impl.hpp"
 #endif // __RESOURCES_H__

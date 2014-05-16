@@ -31,11 +31,16 @@ public:
   virtual void updateCurrent(float dT);
   void updateChildren(float dT);
 
-
 protected:
+  Container& getChildren() {return mChildren;}
+  const Container& getChildren() const {return mChildren;}
+  SceneNode* getParent() {return mParent;}
+  const SceneNode* getParent() const {return mParent;}
+
+private:
   Container mChildren;
   SceneNode* mParent;
-  static Container sNodes;
+  //static Container sNodes;
 };
 
 #endif // __SCENENODE_H__
