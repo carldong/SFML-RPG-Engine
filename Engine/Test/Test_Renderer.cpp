@@ -43,9 +43,8 @@ BOOST_AUTO_TEST_CASE(Test_Construct) {
 }
 
 BOOST_AUTO_TEST_CASE(Test_Scene_1) {
-  //monitor.p_timeout.set(5);
-  //monitor.execute(&test_Renderer_scene1);
-  test_Renderer_scene1();
+  monitor.p_timeout.set(5);
+  monitor.execute(&test_Renderer_scene1);
 }
 
 
