@@ -65,6 +65,7 @@ void Renderer::update() {
 void Renderer::notify(Message* msg) {
   switch (msg->type) {
   case Message::LogicTick:
+    processEvents();
     if (mReady) {
       update();
       render();

@@ -20,7 +20,8 @@ int test_Renderer_construct() {
 int test_Renderer_scene1() {
   MessageBus bus;
   sf::RenderWindow window;
-  TestGame game(&bus, 20);
+  //TestGame game(&bus, 20);
+  Game game(&bus);
   Renderer renderer(&bus,
                     640, 480, "Test Renderer Scene 1");
   std::unique_ptr<Scene> scene(new TestScene(&window));
@@ -42,8 +43,9 @@ BOOST_AUTO_TEST_CASE(Test_Construct) {
 }
 
 BOOST_AUTO_TEST_CASE(Test_Scene_1) {
-  monitor.p_timeout.set(5);
-  monitor.execute(&test_Renderer_scene1);
+  //monitor.p_timeout.set(5);
+  //monitor.execute(&test_Renderer_scene1);
+  test_Renderer_scene1();
 }
 
 
