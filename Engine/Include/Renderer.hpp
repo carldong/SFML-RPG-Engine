@@ -42,7 +42,8 @@ private:
   sf::RenderWindow mWindow;
   sf::Clock mClock;
   Ptr mScene;
-bool mReady;
+  bool mReady;
+bool mIsClosed;
 };
 
 #endif // __RENDERER_H__

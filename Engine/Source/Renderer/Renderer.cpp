@@ -14,7 +14,7 @@ Renderer::Renderer(MessageBus* bus,
 		   const std::string& title) :
   Listener(bus),
   mWindow(sf::VideoMode(width, height), title),
-  mScene(nullptr), mReady(false)
+  mScene(nullptr), mReady(false), mIsClosed(false)
 {
 }
 
@@ -30,6 +30,9 @@ Renderer::Ptr Renderer::setScene(Ptr _scene) {
   mReady = _scene != nullptr;
   
   Ptr pOldScene(std::move(mScene));
+  if (pOldScene != nullptr) {
+    pOldScene->setWindow(nullptr);
+  }
   mScene = std::move(_scene);
   mScene->setWindow(&mWindow);
   return pOldScene;
@@ -63,17 +66,20 @@ void Renderer::update() {
 }
 
 void Renderer::notify(Message* msg) {
-  switch (msg->type) {
-  case Message::LogicTick:
-    processEvents();
-    if (mReady) {
-      update();
-      render();
+  if (!mIsClosed) {
+    switch (msg->type) {
+    case Message::LogicTick:
+      processEvents();
+      if (mReady) {
+        update();
+        render();
+      }
+      break;
+    case Message::Quit:
+      mWindow.close();
+      mIsClosed = true;
+      break;
     }
-    break;
-  case Message::Quit:
-    mWindow.close();
-    break;
   }
 }
 

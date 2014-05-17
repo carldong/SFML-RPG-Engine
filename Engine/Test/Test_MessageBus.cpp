@@ -38,11 +38,9 @@ int test_messagebus_method() {
 
   BOOST_CHECK(l1->mMessages[0] == msg1);
   BOOST_CHECK(l1->mMessages[1] == msg2);
-  BOOST_CHECK(static_cast<RichMessage<int>*>(l1->mMessages[1])->value == 0);
   BOOST_CHECK(l1->mMessages[2] == msg3);
   BOOST_CHECK(l2->mMessages[0] == msg1);
   BOOST_CHECK(l2->mMessages[1] == msg2);
-  BOOST_CHECK(static_cast<RichMessage<int>*>(l2->mMessages[1])->value == 0);
   BOOST_CHECK(l2->mMessages[2] == msg3);
   
   return 0;

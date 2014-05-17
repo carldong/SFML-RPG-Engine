@@ -20,16 +20,15 @@ int test_Renderer_construct() {
 int test_Renderer_scene1() {
   MessageBus bus;
   sf::RenderWindow window;
-  //TestGame game(&bus, 20);
-  Game game(&bus);
+  TestGame game(&bus, 20);
   Renderer renderer(&bus,
                     640, 480, "Test Renderer Scene 1");
   std::unique_ptr<Scene> scene(new TestScene(&window));
   scene->buildScene();
 
-  renderer.setScene(std::move(scene));
+  //renderer.setScene(std::move(scene));
     
-  game.run();
+  //game.run();
   
   return 0;
 }

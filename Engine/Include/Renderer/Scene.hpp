@@ -17,7 +17,12 @@ public:
 
   // Updates
   virtual void update(float dT) {assert(dT>0.f); mSceneGraph.update(dT);}
-  virtual void draw() {mWindow->setView(mSceneView); mWindow->draw(mSceneGraph);}
+  virtual void draw() {
+    if (mWindow != nullptr) {
+      mWindow->setView(mSceneView);
+      mWindow->draw(mSceneGraph);
+    }
+  }
   virtual void buildScene() {}
 
 protected:
