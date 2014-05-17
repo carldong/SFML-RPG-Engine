@@ -5,9 +5,9 @@
 
 class SFMLSpriteNode : public SFMLNode {
 public:
-  explicit SFMLSpriteNode(const sf::Texture& texture);
+  explicit SFMLSpriteNode(const sf::Texture& _texture);
   SFMLSpriteNode(const sf::Texture& _texture,
-                 const sf::IntRect& rect);
+                 const sf::IntRect& _rect);
 
 private:
   virtual void drawCurrent(sf::RenderTarget& target,

@@ -14,7 +14,7 @@ Renderer::Renderer(MessageBus* bus,
 		   const std::string& title) :
   Listener(bus),
   mWindow(sf::VideoMode(width, height), title),
-  mScene(new Scene(&mWindow))
+  mScene(nullptr), mReady(false)
 {
 }
 
@@ -26,7 +26,9 @@ Renderer::Renderer(MessageBus* bus,
    @return Pointer to old scene
  */
 Renderer::Ptr Renderer::setScene(Ptr _scene) {
-  assert (_scene != nullptr);
+  // If scene is not empty, Renderer is ready
+  mReady = _scene != nullptr;
+  
   Ptr pOldScene(std::move(mScene));
   mScene = std::move(_scene);
   mScene->setWindow(&mWindow);
@@ -51,6 +53,7 @@ void Renderer::processEvents() {
    Update scene
  */
 void Renderer::update() {
+  assert (mScene != nullptr);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   timeSinceLastUpdate += mClock.restart();
   while (timeSinceLastUpdate > Game::TimePerFrame) {
@@ -62,8 +65,10 @@ void Renderer::update() {
 void Renderer::notify(Message* msg) {
   switch (msg->type) {
   case Message::LogicTick:
-    update();
-    render();
+    if (mReady) {
+      update();
+      render();
+    }
     break;
   case Message::Quit:
     mWindow.close();
@@ -72,6 +77,7 @@ void Renderer::notify(Message* msg) {
 }
 
 void Renderer::render() {
+  assert(mScene != nullptr);
   mWindow.clear();
   mScene->draw();
   mWindow.display();

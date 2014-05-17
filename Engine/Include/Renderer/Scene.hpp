@@ -9,7 +9,8 @@ class Scene : private sf::NonCopyable {
 public:
   explicit Scene(sf::RenderWindow* window) :
     mWindow(window),
-    mSceneView(window->getDefaultView()) {}
+    mSceneView(window->getDefaultView()),
+    mSceneGraph(){}
 
   // Modifiers
   void setWindow(sf::RenderWindow* _window) {mWindow = _window;}

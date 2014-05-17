@@ -1,5 +1,7 @@
 #include <Renderer/SceneNode.hpp>
 
+#include <iostream>
+
 /**
    Construct a SceneNode, and add the pointer to this object to class
    member variable sNodes
@@ -13,7 +15,6 @@ SceneNode::SceneNode() : mChildren(), mParent(nullptr) {
    @param child The SceneNode to be added
  */
 void SceneNode::attachChild(Ptr child) {
-  assert (child != nullptr);
   child->mParent = this;
   //bool success = mChildren.insert(child).second;
   mChildren.push_back(std::move(child));

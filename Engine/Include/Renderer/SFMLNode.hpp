@@ -14,7 +14,7 @@ class SFMLNode : public SceneNode ,
 public:
   SFMLNode() : SceneNode() {}
 
-protected:
+  //protected:
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:

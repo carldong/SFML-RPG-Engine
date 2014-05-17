@@ -5,6 +5,8 @@
 #include <Resources/Resources.hpp>
 #include <Game.hpp>
 
+#include <SFML/Graphics/RenderStates.hpp>
+
 class TestGame : public Game {
 public:
   TestGame(MessageBus* bus, size_t quitTicks=2) :
@@ -28,7 +30,9 @@ class TestScene : public Scene {
 public:
   TestScene(sf::RenderWindow* window) :
     Scene(window),
-    mSceneBounds(0.f, 0.f, mSceneView.getSize().x, mSceneView.getSize().y) {}
+    mSceneBounds(0.f, 0.f, mSceneView.getSize().x, mSceneView.getSize().y),
+    mTextures()
+  {}
   void buildScene() final;
   
 private:
@@ -42,9 +46,9 @@ void TestScene::buildScene() {
   sf::IntRect textureRect(mSceneBounds);
   texture.setRepeated(true);
 
-  std::unique_ptr<SFMLSpriteNode>
+  std::unique_ptr<SFMLNode>
     testSprite(new SFMLSpriteNode(texture, textureRect));
-  testSprite->setPosition(mSceneBounds.left, mSceneBounds.top);
+  //testSprite->setPosition(0, 0);
   mSceneGraph.attachChild(std::move(testSprite));
 }
 

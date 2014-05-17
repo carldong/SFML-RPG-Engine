@@ -39,7 +39,8 @@ private:
   virtual void updateChildren(float dT);
 
 
-private:
+  //private:
+protected:
   Container mChildren;
   SceneNode* mParent;
   //static Container sNodes;
