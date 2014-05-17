@@ -22,7 +22,6 @@ public:
   Renderer(MessageBus* bus,
            unsigned int width, unsigned int height,
 	   const std::string& title);
-
   // Accessors
   Scene* getScene() {return mScene.get();}
 

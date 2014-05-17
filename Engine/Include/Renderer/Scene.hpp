@@ -11,7 +11,7 @@ public:
     mWindow(window),
     mSceneView(window->getDefaultView()),
     mSceneGraph(){}
-
+  virtual ~Scene() {}
   // Modifiers
   void setWindow(sf::RenderWindow* _window) {mWindow = _window;}
 

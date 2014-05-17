@@ -42,20 +42,20 @@ private:
 
 void TestScene::buildScene() {
   mTextures.load(0,"Test/assets/test_texture.png");
-  // mTextures.load(1,"Test/assets/test_texture.png");
-  // sf::Texture& texture = mTextures.get(0);
-  // sf::Texture& texture2 = mTextures.get(1);
-  // sf::IntRect textureRect(mSceneBounds);
-  // sf::IntRect textureRect2(mSceneBounds);
-  // texture.setRepeated(true);
+  mTextures.load(1,"Test/assets/test_texture.png");
+  sf::Texture& texture = mTextures.get(0);
+  sf::Texture& texture2 = mTextures.get(1);
+  sf::IntRect textureRect(mSceneBounds);
+  sf::IntRect textureRect2(mSceneBounds);
+  texture.setRepeated(true);
 
-  // std::unique_ptr<SFMLNode>
-  //   testSprite(new SFMLSpriteNode(texture, textureRect));
-  // mSceneGraph.attachChild(std::move(testSprite));
+  std::unique_ptr<SFMLNode>
+    testSprite(new SFMLSpriteNode(texture, textureRect));
+  mSceneGraph.attachChild(std::move(testSprite));
 
-  // std::unique_ptr<SFMLNode>
-  //   testSprite2(new SFMLSpriteNode(texture2, textureRect2));
-  // mSceneGraph.attachChild(std::move(testSprite2));
+  std::unique_ptr<SFMLNode>
+    testSprite2(new SFMLSpriteNode(texture2, textureRect2));
+  mSceneGraph.attachChild(std::move(testSprite2));
 }
 
 #endif // __TEST_RENDERER_H__

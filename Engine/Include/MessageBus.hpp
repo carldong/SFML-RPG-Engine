@@ -27,7 +27,7 @@ public:
 
 public:
   Message(Type _type) :
-    type(_type){} 
+    type(_type){}
 
 public:
   Type type;
