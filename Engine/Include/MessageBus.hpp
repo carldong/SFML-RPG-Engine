@@ -28,7 +28,6 @@ public:
 public:
   Message(Type _type) :
     type(_type){}
-
 public:
   Type type;
 };
@@ -83,7 +82,7 @@ public:
   Listener(MessageBus* bus) : mMessageBus(nullptr) {
     registerTo(bus);
   }
-  ~Listener();
+  virtual ~Listener();
 
   void registerTo(MessageBus* bus) {
     assert(bus != nullptr);

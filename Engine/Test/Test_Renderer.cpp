@@ -26,9 +26,9 @@ int test_Renderer_scene1() {
   std::unique_ptr<Scene> scene(new TestScene(&window));
   scene->buildScene();
 
-  //renderer.setScene(std::move(scene));
+  renderer.setScene(std::move(scene));
     
-  //game.run();
+  game.run();
   
   return 0;
 }
@@ -37,12 +37,12 @@ BOOST_AUTO_TEST_SUITE(Test_Renderer)
 unit_test_monitor_t& monitor = unit_test_monitor_t::instance();
 
 BOOST_AUTO_TEST_CASE(Test_Construct) {
-  monitor.p_timeout.set(3);
+  monitor.p_timeout.set(10);
   monitor.execute(&test_Renderer_construct);
 }
 
 BOOST_AUTO_TEST_CASE(Test_Scene_1) {
-  monitor.p_timeout.set(5);
+  monitor.p_timeout.set(10);
   monitor.execute(&test_Renderer_scene1);
 }
 

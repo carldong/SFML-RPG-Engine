@@ -11,7 +11,6 @@
 template<typename Resource, typename Identifier>
 class ResourceHolder {
 public:
-~ResourceHolder(){std::cout << "ResourceHolder::~ResourceHolder()" << std::endl;}
   void load(Identifier id, const std::string& filename);
   template<typename Parameter> void load(Identifier id,
 					 const std::string& filename,
