@@ -21,6 +21,7 @@ public:
 
   // Constructor and destructor
   SceneNode();
+  virtual ~SceneNode() {}
 
 public:
   void attachChild(Ptr child);

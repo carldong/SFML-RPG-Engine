@@ -28,6 +28,7 @@ public:
 public:
   Message(Type _type) :
     type(_type){}
+  virtual ~Message() {}
 public:
   Type type;
 };

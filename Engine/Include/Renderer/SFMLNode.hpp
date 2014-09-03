@@ -13,7 +13,7 @@ class SFMLNode : public SceneNode ,
 		 public sf::NonCopyable {
 public:
   SFMLNode() : SceneNode() {}
-
+  virtual ~SFMLNode() {}
   //protected:
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
