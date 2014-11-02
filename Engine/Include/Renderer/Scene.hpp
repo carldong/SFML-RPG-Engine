@@ -1,3 +1,6 @@
+/**
+   This file contains the Scene class.
+ */
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
@@ -6,6 +9,10 @@
 #include <Renderer/SFMLNode.hpp>
 
 class Scene : private sf::NonCopyable {
+  /**
+     Each Scene contains a SFMLNode that is to be rendered on screen
+     in a View.
+   */
 public:
   explicit Scene(sf::RenderWindow* window) :
     mWindow(window),
