@@ -1,0 +1,15 @@
+{
+    "name": "com.ubuntu.developer.username.sfml-engine",
+    "description": "description of SFML-Engine",
+    "framework": "ubuntu-sdk-14.04-qml",
+    "architecture": "all",
+    "title": "SFML-Engine",
+    "hooks": {
+        "SFML-Engine": {
+            "apparmor": "SFML-Engine.json",
+            "desktop": "SFML_Engine.desktop"
+        }
+    },
+    "version": "0.1",
+    "maintainer": ""
+}
